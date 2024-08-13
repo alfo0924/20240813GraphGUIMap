@@ -37,9 +37,6 @@
    - 方法：`iddfs()` 和 `dfsWithDepthLimit()`
    - 特點：結合了 DFS 的空間效率和 BFS 的完備性，逐步增加搜索深度
 
-5. **蟻群算法**
-   - 方法：`antColonyOptimization()`
-   - 特點：模擬蟻群行為，通過信息素迭代優化路徑
 
 ## 使用方法
 
