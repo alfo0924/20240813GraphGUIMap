@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cfb5d21f-3f85-480c-b4c5-d45fff8d77a9" name="Changes" comment="v1.33 add MazeGame cnp">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="cfb5d21f-3f85-480c-b4c5-d45fff8d77a9" name="Changes" comment="v1.44 add MazeGame cnp">
       <change beforePath="$PROJECT_DIR$/src/main/java/fcu/web/MazeGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fcu/web/MazeGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1723519689180</updated>
       <workItem from="1723519690318" duration="3260000" />
-      <workItem from="1723553226783" duration="4032000" />
+      <workItem from="1723553226783" duration="4770000" />
     </task>
     <task id="LOCAL-00001" summary="v1.01  cnp">
       <option name="closed" value="true" />
@@ -126,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723555875543</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="v1.44 add MazeGame cnp">
+      <option name="closed" value="true" />
+      <created>1723557630411</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723557630411</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,6 +143,7 @@
     <MESSAGE value="v1.01  cnp" />
     <MESSAGE value="v1.21  cnp" />
     <MESSAGE value="v1.33 add MazeGame cnp" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.33 add MazeGame cnp" />
+    <MESSAGE value="v1.44 add MazeGame cnp" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.44 add MazeGame cnp" />
   </component>
 </project>

@@ -5,20 +5,29 @@ import java.awt.*;
 import java.util.*;
 
 public class MazeGame extends JFrame {
+    // 迷宮大小
     private int size;
+    // 迷宮數組，0表示通路，1表示牆壁，2表示搜索路徑
     private int[][] maze;
+    // 起點和終點的坐標
     private int startX, startY, endX, endY;
+    // 用於繪製迷宮的面板
     private JPanel mazePanel;
+    // 輸入迷宮大小的文本框
     private JTextField sizeInput;
+    // 各種操作按鈕
     private JButton generateButton, dfsButton, bfsButton, aStarButton, iddfsButton;
+    // 顯示搜索時間的標籤
     private JLabel timeLabel;
 
+    // 構造函數
     public MazeGame() {
         setTitle("D1204433 林俊傑 迷宮小遊戲");
         setSize(600, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        // 創建控制面板
         JPanel controlPanel = new JPanel();
         sizeInput = new JTextField(5);
         generateButton = new JButton("生成迷宮");
@@ -28,6 +37,7 @@ public class MazeGame extends JFrame {
         iddfsButton = new JButton("IDDFS搜索");
         timeLabel = new JLabel("搜索時間: ");
 
+        // 添加組件到控制面板
         controlPanel.add(new JLabel("迷宮大小: "));
         controlPanel.add(sizeInput);
         controlPanel.add(generateButton);
@@ -39,6 +49,7 @@ public class MazeGame extends JFrame {
 
         add(controlPanel, BorderLayout.NORTH);
 
+        // 創建迷宮面板
         mazePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -68,6 +79,7 @@ public class MazeGame extends JFrame {
 
         add(mazePanel, BorderLayout.CENTER);
 
+        // 添加按鈕監聽器
         generateButton.addActionListener(e -> generateMaze());
         dfsButton.addActionListener(e -> search("DFS"));
         bfsButton.addActionListener(e -> search("BFS"));
@@ -77,6 +89,7 @@ public class MazeGame extends JFrame {
         setVisible(true);
     }
 
+    // 生成迷宮
     private void generateMaze() {
         try {
             size = Integer.parseInt(sizeInput.getText());
@@ -89,6 +102,7 @@ public class MazeGame extends JFrame {
                 Arrays.fill(maze[i], 1);
             }
 
+            // 隨機生成起點和終點
             Random rand = new Random();
             startX = rand.nextInt(size);
             startY = rand.nextInt(size);
@@ -98,7 +112,6 @@ public class MazeGame extends JFrame {
             } while (endX == startX && endY == startY);
 
             generatePath(startX, startY);
-
             maze[startX][startY] = 0;
             maze[endX][endY] = 0;
 
@@ -108,14 +121,13 @@ public class MazeGame extends JFrame {
         }
     }
 
+    // 遞迴生成迷宮路徑
     private void generatePath(int x, int y) {
         int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         Collections.shuffle(Arrays.asList(directions));
-
         for (int[] dir : directions) {
             int nx = x + dir[0] * 2;
             int ny = y + dir[1] * 2;
-
             if (nx >= 0 && nx < size && ny >= 0 && ny < size && maze[nx][ny] == 1) {
                 maze[x + dir[0]][y + dir[1]] = 0;
                 maze[nx][ny] = 0;
@@ -124,12 +136,14 @@ public class MazeGame extends JFrame {
         }
     }
 
+    // 執行搜索
     private void search(String method) {
         if (maze == null) {
             JOptionPane.showMessageDialog(this, "請先生成迷宮");
             return;
         }
 
+        // 清除之前的搜索路徑
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (maze[i][j] == 2) maze[i][j] = 0;
@@ -166,6 +180,7 @@ public class MazeGame extends JFrame {
         mazePanel.repaint();
     }
 
+    // 深度優先搜索
     private boolean dfs(int x, int y) {
         if (x < 0 || x >= size || y < 0 || y >= size || maze[x][y] == 1 || maze[x][y] == 2) return false;
         if (x == endX && y == endY) return true;
@@ -178,6 +193,7 @@ public class MazeGame extends JFrame {
         return false;
     }
 
+    // 廣度優先搜索
     private boolean bfs() {
         Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[size][size];
@@ -205,6 +221,7 @@ public class MazeGame extends JFrame {
         return false;
     }
 
+    // A*搜索算法
     private boolean aStar() {
         PriorityQueue<Node> openList = new PriorityQueue<>();
         boolean[][] closedList = new boolean[size][size];
@@ -241,10 +258,12 @@ public class MazeGame extends JFrame {
         return false;
     }
 
+    // 啟發函數
     private int heuristic(int x, int y) {
         return Math.abs(x - endX) + Math.abs(y - endY);
     }
 
+    // 迭代加深深度優先搜索
     private boolean iddfs() {
         for (int depth = 0; depth < size * size; depth++) {
             boolean[][] visited = new boolean[size][size];
@@ -255,6 +274,7 @@ public class MazeGame extends JFrame {
         return false;
     }
 
+    // 有深度限制的深度優先搜索
     private boolean dfsWithDepthLimit(int x, int y, int depth, boolean[][] visited) {
         if (x < 0 || x >= size || y < 0 || y >= size || maze[x][y] == 1 || visited[x][y]) return false;
         if (x == endX && y == endY) {
@@ -278,6 +298,7 @@ public class MazeGame extends JFrame {
         return false;
     }
 
+    // A*算法的節點類
     private class Node implements Comparable<Node> {
         int x, y, g, h;
         Node parent;
@@ -295,6 +316,7 @@ public class MazeGame extends JFrame {
         }
     }
 
+    // 主方法
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MazeGame::new);
     }
